@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float airControl = 0.7f;
+    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Animator animPlayer;
     private Rigidbody2D rb;
 
     [Header("Jump Settings")]
@@ -23,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        applyAnimation();
     }
 
     void FixedUpdate()
@@ -46,10 +54,34 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetKey(jumpKey) && isGround)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+
+        if (horizontal < 0)
+        {
+            sr.flipX = true;
+        }
+        else if (horizontal > 0)
+        {
+            sr.flipX = false;
+        }
 
         
+    }
+
+    private void applyAnimation()
+    {
+        bool isRunning = false;
+        float horizontal = Input.GetAxis("Horizontal");
+        if (horizontal != 0) {
+            isRunning = true;
+        }
+        else {
+            isRunning = false;
+        }
+
+        animPlayer.SetBool("isRunning", isRunning);
     }
 }
