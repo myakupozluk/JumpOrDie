@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float airControl = 0.7f;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Animator animPlayer;
+    private Animator animPlayer;
     private Rigidbody2D rb;
 
     [Header("Jump Settings")]
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animPlayer = GetComponent<Animator>();
     }
 
     void Update()
