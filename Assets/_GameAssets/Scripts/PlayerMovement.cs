@@ -74,15 +74,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void applyAnimation()
     {
-        bool isRunning = false;
+        isGround = Physics2D.Raycast(groundCheck.position, Vector2.down, raycastDistance, groundLayer);
+        bool isRunning;
         float horizontal = Input.GetAxis("Horizontal");
-        if (horizontal != 0) {
+        if (horizontal != 0)
+        {
             isRunning = true;
         }
-        else {
+        else
+        {
             isRunning = false;
         }
 
         animPlayer.SetBool("isRunning", isRunning);
+        animPlayer.SetBool("isJumping", !isGround);
     }
 }
