@@ -7,12 +7,11 @@ using Unity.VisualScripting;
 public class RotateOnTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject targetObject;
-    [SerializeField] private float rotateValueX;
-    [SerializeField] private float rotateValueY;
+    [SerializeField] private float rotateValue;
     [SerializeField] private float time;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        targetObject.transform.DORotate(new Vector2(targetObject.transform.rotation.x + rotateValueX, targetObject.transform.rotation.y + rotateValueY), time);
+        targetObject.transform.DORotate(new Vector3(targetObject.transform.rotation.x, targetObject.transform.rotation.y, targetObject.transform.rotation.z + rotateValue), time);
     }
 }
